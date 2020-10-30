@@ -106,17 +106,44 @@ void enc(){
 	sscanf(E_buf, "%lf", &E);
 	sscanf(AES_k1, "%lf", &K1);
 	int RA_key = mod_exp((int) N, (int) E, (int) K1);
-
-
-	FILE* output = fopen("ciphered_file", "w+");
-	if (output == NULL) {
-		fprintf(stderr, "failed to create ciphered_file!\n");	
+	int dec = 1;
+	while (RA_key / 10 != 0) {
+		RA_key = RA_key	/ 10;
+		dec += 1;
 	}
+	if (dec > 16) {
+		fprintf(stderr, "RA_key too long!\n");
+		exit;
+	}
+	char key[dec];
+	sprintf(key, "%d", RA_key);
+	char key_pad[16];
+	if (strlen(key) < 16) {
+		strcpy(key_pad, key)
+		char* ptr = key_pad + strlen(key);
+		for (int i = 0; i < 16 - strlen(key); i++) {
+			*ptr = '0';
+			ptr += 1;
+		}
+	} else {
+		strcpy(key_pad, key);
+	}
+	AES_cts* ctx = malloc(sizeof(AES_ctx));
+	AES_init_ctx(ctx, (uint8_t* AES_key2));
+	AES_ECB_encrypt(ctx, key_pad);
+	fprintf(stderr, "ciphered RA key = %s\n", key_pad);
+	AES_ECB_decrypt(ctx, key_pad);
+	fprintf(stderr, "original RA key = %s\n", key_pad);
+
+	// FILE* output = fopen("ciphered_file", "w+");
+	// if (output == NULL) {
+	// 	fprintf(stderr, "failed to create ciphered_file!\n");	
+	// }
 	
 	
 	
 
-	fclose(output);
+	// fclose(output);
 	return;
 }
 
@@ -136,12 +163,12 @@ int main(int argc, char** argv) {
 	}
 	AES_k1 = argv[1];
 	AES_k2 = argv[2];
-	fp = fopen(argv[4], "r");
-	if (fp == NULL) {
-        fprintf(stderr, "Could not open original file.\n");
-        exit(1);
-    }
+	// fp = fopen(argv[4], "r");
+	// if (fp == NULL) {
+    //     fprintf(stderr, "Could not open original file.\n");
+    //     exit(1);
+    // }
 	enc();
-	fclose(fp);
+	// fclose(fp);
 	return;
 }
