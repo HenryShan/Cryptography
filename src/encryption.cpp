@@ -677,6 +677,7 @@ void enc(){
 	fprintf(stderr, "6\n");
 	AES_ctx* ctx = (AES_ctx*) malloc(sizeof(AES_ctx));
 	AES_init_ctx(ctx, AES_k2_uc);
+	fprintf(stderr, "RA_key = %s now\n", key_pad);
 	AES_ECB_encrypt(ctx, key_pad_uc);
 	fprintf(stderr, "ciphered RA key = %s\n", key_pad_uc);
 	AES_ECB_decrypt(ctx, key_pad_uc);
