@@ -92,11 +92,13 @@ void enc(){
 	char N_buf[strlen(RSA_PK)];
 	char E_buf[strlen(RSA_PK)];
 	char* ptr = RSA_PK;
+	int i = 0;
 	while (*ptr != ',') {
-		N_buf[ptr] = RSA_PK[ptr];
+		N_buf[i] = RSA_PK[i];
 		ptr++;
+		i++;
 	}
-	N_buf[ptr] = '\0';
+	N_buf[i] = '\0';
 	ptr++;
 	strcpy(E_buf, ptr);
 	double N;
@@ -119,7 +121,7 @@ void enc(){
 	sprintf(key, "%d", RA_key);
 	char key_pad[16];
 	if (strlen(key) < 16) {
-		strcpy(key_pad, key)
+		strcpy(key_pad, key);
 		char* ptr = key_pad + strlen(key);
 		for (int i = 0; i < 16 - strlen(key); i++) {
 			*ptr = '0';
@@ -128,8 +130,8 @@ void enc(){
 	} else {
 		strcpy(key_pad, key);
 	}
-	AES_cts* ctx = malloc(sizeof(AES_ctx));
-	AES_init_ctx(ctx, (uint8_t* AES_key2));
+	AES_ctx* ctx = malloc(sizeof(AES_ctx));
+	AES_init_ctx(ctx, (uint8_t*) AES_key2);
 	AES_ECB_encrypt(ctx, key_pad);
 	fprintf(stderr, "ciphered RA key = %s\n", key_pad);
 	AES_ECB_decrypt(ctx, key_pad);
