@@ -21,22 +21,22 @@ void dec(){
 
 int main(int argc, char** argv) {
 	
-	if (argc != 5) {
-        fprintf(stderr, "usage: %s AES_key2 RSAp RSAq filename", argv[0]);
-        exit(1);
-    }
+	// if (argc != 5) {
+    //     fprintf(stderr, "usage: %s AES_key2 RSAp RSAq filename", argv[0]);
+    //     exit(1);
+    // }
 
-	if (strlen((char*)argv[1]) != 16) {
-		fprintf(stderr, "Illegal AES key length!");
-		exit(1);
-	}
-	sscanf(argv[2], "%lf", &RSA_p);
-	sscanf(argv[3], "%lf", &RSA_q);
-	if (fp == NULL) {
-        fprintf(stderr, "Could not open original file.\n");
-        exit(1);
-    }
-	dec();
-	fclose(fp);
+	// if (strlen((char*)argv[1]) != 16) {
+	// 	fprintf(stderr, "Illegal AES key length!");
+	// 	exit(1);
+	// }
+	// sscanf(argv[2], "%lf", &RSA_p);
+	// sscanf(argv[3], "%lf", &RSA_q);
+	// if (fp == NULL) {
+    //     fprintf(stderr, "Could not open original file.\n");
+    //     exit(1);
+    // }
+	// dec();
+	// fclose(fp);
 	return
 }
