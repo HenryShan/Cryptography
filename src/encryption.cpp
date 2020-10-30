@@ -68,9 +68,9 @@ FILE* fp = NULL;
 	
  	return result;
 }*/
-// extern "C" void AES_init_ctx(struct AES_ctx* ctx, const uint8_t* key);
-// extern "C" void AES_ECB_encrypt(const struct AES_ctx* ctx, uint8_t* buf);
-// extern "C" void AES_ECB_decrypt(const struct AES_ctx* ctx, uint8_t* buf);
+extern "C++" void AES_init_ctx(struct AES_ctx* ctx, const uint8_t* key);
+extern "C++" void AES_ECB_encrypt(const struct AES_ctx* ctx, uint8_t* buf);
+extern "C++" void AES_ECB_decrypt(const struct AES_ctx* ctx, uint8_t* buf);
 
 
 int mod_exp(int g, int e, int N) {
