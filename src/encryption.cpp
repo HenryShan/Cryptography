@@ -130,8 +130,12 @@ void enc(){
 	} else {
 		strcpy(key_pad, key);
 	}
-	AES_ctx* ctx = malloc(sizeof(AES_ctx));
-	AES_init_ctx(ctx, (uint8_t*) AES_key2);
+	unsigned char AES_k2_uc[strlen(AES_k2)];
+	for (int i = 0; i < strlen(AES_k2); i++) {
+		AES_k2_uc[i] = static_cast<unsigned char>(AES_k2[i]);
+	}
+	AES_ctx* ctx = malloc(sizeof(struct AES_ctx));
+	AES_init_ctx(ctx, (uint8_t*) AES_k2);
 	AES_ECB_encrypt(ctx, key_pad);
 	fprintf(stderr, "ciphered RA key = %s\n", key_pad);
 	AES_ECB_decrypt(ctx, key_pad);
