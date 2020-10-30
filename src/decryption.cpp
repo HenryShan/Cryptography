@@ -26,7 +26,7 @@ int main(int argc, char** argv) {
         exit(1);
     }
 
-	if (strlen((char*)argv[1]) != 16) != 16) {
+	if (strlen((char*)argv[1]) != 16) {
 		fprintf(stderr, "Illegal AES key length!");
 		exit(1);
 	}
