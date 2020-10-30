@@ -623,6 +623,7 @@ void enc(){
 	char E_buf[strlen(RSA_PK)];
 	char* ptr = RSA_PK;
 	int i = 0;
+	fprintf(stderr, "RSA_PK = %s\n", RSA_PK);
 	while (*ptr != ',') {
 		N_buf[i] = RSA_PK[i];
 		ptr++;
