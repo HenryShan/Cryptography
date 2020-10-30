@@ -182,5 +182,5 @@ int main(int argc, char** argv) {
     // }
 	enc();
 	// fclose(fp);
-	return;
+	return 0;
 }
