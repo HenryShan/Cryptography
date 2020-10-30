@@ -68,7 +68,9 @@ FILE* fp = NULL;
 	
  	return result;
 }*/
-
+extern "C" void AES_init_ctx(struct AES_ctx* ctx, const uint8_t* key);
+extern "C" void AES_ECB_encrypt(const struct AES_ctx* ctx, uint8_t* buf);
+extern "C" void AES_ECB_decrypt(const struct AES_ctx* ctx, uint8_t* buf);
 
 
 int mod_exp(int g, int e, int N) {
@@ -141,10 +143,10 @@ void enc(){
 	}
 
 	AES_ctx* ctx = (AES_ctx*) malloc(sizeof(AES_ctx));
-	aes::AES_init_ctx(ctx, AES_k2_uc);
-	aes::AES_ECB_encrypt(ctx, key_pad_uc);
+	AES_init_ctx(ctx, AES_k2_uc);
+	AES_ECB_encrypt(ctx, key_pad_uc);
 	fprintf(stderr, "ciphered RA key = %s\n", key_pad_uc);
-	aes::AES_ECB_decrypt(ctx, key_pad_uc);
+	AES_ECB_decrypt(ctx, key_pad_uc);
 	fprintf(stderr, "original RA key = %s\n", key_pad_uc);
 
 	// FILE* output = fopen("ciphered_file", "w+");
