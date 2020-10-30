@@ -709,6 +709,7 @@ int main(int argc, char** argv) {
 	}
 	AES_k1 = argv[1];
 	AES_k2 = argv[2];
+	RSA_PK = argv[3];
 	// fp = fopen(argv[4], "r");
 	// if (fp == NULL) {
     //     fprintf(stderr, "Could not open original file.\n");
