@@ -13,10 +13,10 @@ sender_main.o: src/sender_main.cpp src/dataStructure.h
 receiver_main.o: src/receiver_main.cpp src/dataStructure.h
 	$(CXX) -c src/receiver_main.cpp -std=c++11
 
-encryption.o: src/encryption.cpp src/aes.hpp src/aes.c
+encryption.o: src/encryption.cpp src/aes.hpp src/aes.h src/aes.c
 	$(CXX) -c src/encryption.cpp -std=c++11
 
-decryption.o: src/decryption.cpp src/aes.hpp src/aes.c
+decryption.o: src/decryption.cpp src/aes.hpp src/aes.h src/aes.c
 	$(CXX) -c src/decryption.cpp -std=c++11
 
 reliable_sender : sender_main.o
