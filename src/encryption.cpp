@@ -618,6 +618,7 @@ void enc(){
 	double q = RSA_PK;
 	double to = (p-1.0)*(q-1.0);
 	*/
+	fprintf(stderr, "1\n");
 	char N_buf[strlen(RSA_PK)];
 	char E_buf[strlen(RSA_PK)];
 	char* ptr = RSA_PK;
@@ -627,6 +628,7 @@ void enc(){
 		ptr++;
 		i++;
 	}
+	fprintf(stderr, "2\n");
 	N_buf[i] = '\0';
 	ptr++;
 	strcpy(E_buf, ptr);
@@ -636,6 +638,7 @@ void enc(){
 	sscanf(N_buf, "%lf", &N);
 	sscanf(E_buf, "%lf", &E);
 	sscanf(AES_k1, "%lf", &K1);
+	fprintf(stderr, "3\n");
 	int RA_key = mod_exp((int) N, (int) E, (int) K1);
 	int dec = 1;
 	while (RA_key / 10 != 0) {
@@ -646,6 +649,7 @@ void enc(){
 		fprintf(stderr, "RA_key too long!\n");
 		exit;
 	}
+	fprintf(stderr, "4\n");
 	char key[dec];
 	sprintf(key, "%d", RA_key);
 	char key_pad[16];
@@ -659,6 +663,7 @@ void enc(){
 	} else {
 		strcpy(key_pad, key);
 	}
+	fprintf(stderr, "5\n");
 	unsigned char AES_k2_uc[strlen(AES_k2)];
 	for (int i = 0; i < strlen(AES_k2); i++) {
 		AES_k2_uc[i] = static_cast<unsigned char>(AES_k2[i]);
@@ -668,14 +673,13 @@ void enc(){
 	for (int i = 0; i < 16; i++) {
 		key_pad_uc[i] = static_cast<unsigned char>(key_pad[i]);
 	}
-
+	fprintf(stderr, "6\n");
 	AES_ctx* ctx = (AES_ctx*) malloc(sizeof(AES_ctx));
 	AES_init_ctx(ctx, AES_k2_uc);
 	AES_ECB_encrypt(ctx, key_pad_uc);
 	fprintf(stderr, "ciphered RA key = %s\n", key_pad_uc);
 	AES_ECB_decrypt(ctx, key_pad_uc);
 	fprintf(stderr, "original RA key = %s\n", key_pad_uc);
-
 	// FILE* output = fopen("ciphered_file", "w+");
 	// if (output == NULL) {
 	// 	fprintf(stderr, "failed to create ciphered_file!\n");	
