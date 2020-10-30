@@ -140,7 +140,7 @@ void enc(){
 		key_pad_uc[i] = static_cast<unsigned char>(key_pad[i]);
 	}
 
-	AES_ctx* ctx = malloc(176);
+	AES_ctx* ctx = (AES_ctx*) malloc(sizeof(AES_ctx));
 	AES_init_ctx(ctx, AES_k2_uc);
 	AES_ECB_encrypt(ctx, key_pad_uc);
 	fprintf(stderr, "ciphered RA key = %s\n", key_pad_uc);
