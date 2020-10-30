@@ -134,12 +134,18 @@ void enc(){
 	for (int i = 0; i < strlen(AES_k2); i++) {
 		AES_k2_uc[i] = static_cast<unsigned char>(AES_k2[i]);
 	}
-	AES_ctx* ctx = malloc(sizeof(struct AES_ctx));
-	AES_init_ctx(ctx, (uint8_t*) AES_k2);
-	AES_ECB_encrypt(ctx, key_pad);
-	fprintf(stderr, "ciphered RA key = %s\n", key_pad);
-	AES_ECB_decrypt(ctx, key_pad);
-	fprintf(stderr, "original RA key = %s\n", key_pad);
+
+	unsigned char key_pad_uc[16];
+	for (int i = 0; i < 16; i++) {
+		key_pad_uc[i] = static_cast<unsigned char>(key_pad[i]);
+	}
+
+	AES_ctx* ctx = malloc(176);
+	AES_init_ctx(ctx, AES_k2_uc);
+	AES_ECB_encrypt(ctx, key_pad_uc);
+	fprintf(stderr, "ciphered RA key = %s\n", key_pad_uc);
+	AES_ECB_decrypt(ctx, key_pad_uc);
+	fprintf(stderr, "original RA key = %s\n", key_pad_uc);
 
 	// FILE* output = fopen("ciphered_file", "w+");
 	// if (output == NULL) {

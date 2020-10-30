@@ -10,6 +10,8 @@
 // ECB enables the basic ECB 16-byte block algorithm. All can be enabled simultaneously.
 
 // The #ifndef-guard allows it to be configured before #include'ing or at compile time.
+#define ECB
+
 #ifndef CBC
   #define CBC 1
 #endif
