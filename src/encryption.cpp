@@ -641,6 +641,7 @@ void enc(){
 	sscanf(AES_k1, "%lf", &K1);
 	fprintf(stderr, "3\n");
 	int RA_key = mod_exp((int) N, (int) E, (int) K1);
+	fprintf(stderr, "RA_key = %d\n", RA_key);
 	int dec = 1;
 	while (RA_key / 10 != 0) {
 		RA_key = RA_key	/ 10;
