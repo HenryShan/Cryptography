@@ -600,6 +600,60 @@ void AES_CTR_xcrypt_buffer(struct AES_ctx* ctx, uint8_t* buf, uint32_t length)
 
 #endif // #if defined(CTR) && (CTR == 1)
 
+//original modular exponential calculation algorithm, abandoned due to overflow when g, e, or N is large. 
+
+/*double mod_exp(double g, double e, double N){
+	if (g == 0){
+  		return 0;
+	}else if (g == 1){
+   		return 1;
+	}else if (N <= 0) {
+  		print('invalid modulas');
+   		return 0;
+	}else if (e < 0){
+   		print('invalid exponent');
+   		return 0;
+	}
+	double rest = e;
+	//bits = np.array([]);
+	std::vector<double> bits;
+ 	while (rest > 0){
+   		double i = 0.0
+   		while (pow(2, i) < rest){
+     		i += 1;
+		}
+   		i -= 1;
+   		rest -= pow(2,i);
+		bits.push_back(i);
+   		if (rest == 1) {
+     		bits.push_back(0.0);
+     		break;
+   		} else if (rest == 0){
+	     	break;
+		}
+	}
+ 	double base = g % N;
+ 	double lexp = bits[0]; //the largest exponent
+ 	std::vector<double> material;
+ 	for i in range(0, int(lexp) + 1)
+   		exp = (int(base**(2**i))) % N
+   		material = np.append(material, exp)
+	for (int i = 0; i < (int) lexp + 1) {
+		double exp = ((int)(pow(base, pow(2, i)))) % N;	
+		material.push_back(exp);
+	}
+	double result = 1;
+ 	for exps in bits:
+   		result = int((result * material[int(exps)]) % N)
+	for (int i = 0; i < bits.size(); i++) {
+		result = (result * material[(int)bits[i]]) %N;
+	}
+	
+ 	return result;
+}*/
+
+
+
 int mod_exp(int g, int e, int N) {
 	int result = g % N;
 	for (int i = 0; i < e; i++) {
@@ -687,10 +741,6 @@ void enc(){
 	// if (output == NULL) {
 	// 	fprintf(stderr, "failed to create ciphered_file!\n");	
 	// }
-	
-	
-	
-
 	// fclose(output);
 	return;
 }
@@ -712,11 +762,11 @@ int main(int argc, char** argv) {
 	AES_k1 = argv[1];
 	AES_k2 = argv[2];
 	RSA_PK = argv[3];
-	// fp = fopen(argv[4], "r");
-	// if (fp == NULL) {
-    //     fprintf(stderr, "Could not open original file.\n");
-    //     exit(1);
-    // }
+	fp = fopen(argv[4], "r");
+	if (fp == NULL) {
+        fprintf(stderr, "Could not open original file.\n");
+        exit(1);
+    }
 	enc();
 	// fclose(fp);
 	return 0;
